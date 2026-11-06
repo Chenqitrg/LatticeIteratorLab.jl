@@ -1,5 +1,7 @@
 module UpdateLab
 
+using Configurations: @option
+
 using AlgorithmConfigLab: AbstractAlgorithmConfig
 
 """Base configuration type for update policies."""
@@ -11,6 +13,5 @@ public AbstractUpdate, AbstractSweep
 
 include("state.jl")
 include("sweep.jl")
-include("configuration.jl")
 
 end

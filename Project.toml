@@ -3,12 +3,14 @@ uuid = "fe9b439f-8eb6-4306-8b6e-a4fd64b7a696"
 version = "0.1.0"
 
 [deps]
+Configurations = "5218b696-f38b-4ac9-8b61-a12ec717816d"
 AlgorithmConfigLab = "b0e90283-4d54-4d8d-bc0c-6244e78caa43"
 
 [sources]
 AlgorithmConfigLab = {path = "../AlgorithmConfigLab"}
 
 [compat]
+Configurations = "0.17.6"
 Accessors = "0.1.44"
 julia = "1.12"
 AlgorithmConfigLab = "0.1"

@@ -6,14 +6,13 @@ abstract type AbstractSweep <: AbstractUpdate end
 Visit every site from left to right on each sweep. Bind the period length
 with `sweep_states(sweep, site_count)`; constructing the iterator changes no factors.
 """
-struct CircularSweep <: AbstractSweep
+@option struct CircularSweep <: AbstractSweep
     max_sweeps::Int
     function CircularSweep(max_sweeps::Integer)
         max_sweeps >= 0 || throw(ArgumentError("max_sweeps must be non-negative"))
         return new(Int(max_sweeps))
     end
 end
-CircularSweep(; max_sweeps::Integer) = CircularSweep(max_sweeps)
 
 """
     ZigzagSweep(; max_sweeps)
@@ -21,14 +20,13 @@ CircularSweep(; max_sweeps::Integer) = CircularSweep(max_sweeps)
 Visit `1, 2, …, N, N-1, …, 2` on each round trip. Requires at least two sites.
 Bind N with `sweep_states(sweep, N)`.
 """
-struct ZigzagSweep <: AbstractSweep
+@option struct ZigzagSweep <: AbstractSweep
     max_sweeps::Int
     function ZigzagSweep(max_sweeps::Integer)
         max_sweeps >= 0 || throw(ArgumentError("max_sweeps must be non-negative"))
         return new(Int(max_sweeps))
     end
 end
-ZigzagSweep(; max_sweeps::Integer) = ZigzagSweep(max_sweeps)
 
 struct SweepStates{S<:AbstractSweep}
     sweep::S
