@@ -47,9 +47,10 @@ introduces no generic tensor-update engine or additional scheduling strategies.
 
 ## Configuration and setup
 
-Sweep policies are immutable AlgorithmConfigLab configurations, supporting
+Sweep policies are immutable ExperimentLab configurations, supporting
 construction trees, parameter updates, and data interchange under `UpdateLab`
-constructor names. AlgorithmConfigLab is the only runtime dependency.
+constructor names. Configurations defines the options; ExperimentLab provides tree construction,
+display and JSON files.
 Keep it beside this repository, then run:
 
 ```sh

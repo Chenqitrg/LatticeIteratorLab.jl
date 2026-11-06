@@ -2,7 +2,7 @@ module UpdateLab
 
 using Configurations: @option
 
-using AlgorithmConfigLab: AbstractAlgorithmConfig
+using ExperimentLab: AbstractAlgorithmConfig
 
 """Base configuration type for update policies."""
 abstract type AbstractUpdate <: AbstractAlgorithmConfig end

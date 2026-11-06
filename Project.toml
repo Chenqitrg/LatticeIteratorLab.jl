@@ -4,16 +4,16 @@ version = "0.1.0"
 
 [deps]
 Configurations = "5218b696-f38b-4ac9-8b61-a12ec717816d"
-AlgorithmConfigLab = "b0e90283-4d54-4d8d-bc0c-6244e78caa43"
+ExperimentLab = "29f77e63-5c80-4c5a-8fc3-cbf639322b6d"
 
 [sources]
-AlgorithmConfigLab = {path = "../AlgorithmConfigLab"}
+ExperimentLab = {path = "../ExperimentLab"}
 
 [compat]
 Configurations = "0.17.6"
 Accessors = "0.1.44"
 julia = "1.12"
-AlgorithmConfigLab = "0.1"
+ExperimentLab = "0.1"
 Test = "1.11"
 
 [extras]
