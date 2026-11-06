@@ -1,8 +1,9 @@
-using AlgorithmConfigLab: @config, @setconfig, config_registry, configspec, construct_config
+using Accessors: @set
+using AlgorithmConfigLab: @config, config_registry, configspec, construct_config
 
 @testset "sweep configuration is independent of MPS" begin
     for original in (CircularSweep(max_sweeps=3), ZigzagSweep(max_sweeps=3))
-        changed = @setconfig original max_sweeps = 2
+        changed = @set original.max_sweeps = 2
         @test changed.max_sweeps == 2
         @test original.max_sweeps == 3
         registry = config_registry(typeof(original))
