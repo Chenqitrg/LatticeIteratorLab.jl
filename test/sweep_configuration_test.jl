@@ -37,3 +37,19 @@ end
     end
     @test completes_sweep(SweepState{Forward}(1, 0), nothing)
 end
+
+import ExperimentLab
+
+@testset "UpdateLab configuration identities" begin
+    for config in (CircularSweep(max_sweeps=3), ZigzagSweep(max_sweeps=2)), defaults in (true, false)
+        registry = ExperimentLab.config_registry(typeof(config))
+        record = ExperimentLab.config_record(registry, config; include_defaults=defaults)
+        @test record["type"] == "UpdateLab." * string(nameof(typeof(config)))
+        @test haskey(record, "parameters")
+        io = IOBuffer()
+        ExperimentLab.writeconfig(io, config; include_defaults=defaults)
+        text = String(take!(io))
+        @test isequal(ExperimentLab.readconfig(IOBuffer(text), typeof(config)), config)
+        @test isequal(ExperimentLab.readconfig(IOBuffer(text), registry), config)
+    end
+end
