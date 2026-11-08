@@ -1,9 +1,11 @@
-# UpdateLab
+# LatticeIteratorLab
 
-Position and ordering policies for iterative local updates. A sweep is one such
-policy. This small package currently provides circular and zigzag traversal,
-direction types, and the position of one update. It does not depend on tensors,
-product caches, optimization algorithms, or execution sessions.
+Iterators over lattice positions and traversal order. The current implementation
+provides one-dimensional circular and zigzag sweeps, including direction and
+completed-sweep counts. Callers decide whether to update, measure or otherwise
+process each visited position. The package does not manipulate tensors or caches.
+
+Higher-dimensional traversal is a future direction, not a current feature.
 
 ## Review order
 
@@ -16,7 +18,7 @@ Each example runs independently with `julia --project=. examples/<file>`.
 ## Interface
 
 ```julia
-using UpdateLab
+using LatticeIteratorLab
 
 positions = sweep_states(CircularSweep(max_sweeps=2), 4)
 for position in positions
@@ -33,22 +35,22 @@ maintain caches; consumers decide what to do at each position.
 
 `completes_sweep(position, following_iteration)` checks whether the current
 update ends its sweep. Pass the next `iterate` result, or `nothing` at the end.
-For custom sweep policies, implement `UpdateLab.sweep_states` for a subtype of
-`UpdateLab.AbstractSweep`. The current protocol uses integer iterator cursors.
+For custom sweep policies, implement `LatticeIteratorLab.sweep_states` for a subtype of
+`LatticeIteratorLab.AbstractSweep`. The current protocol uses integer iterator cursors.
 
 The configuration hierarchy is
 `AbstractSweep <: AbstractUpdate <: AbstractAlgorithmConfig`.
-`UpdateLab.AbstractUpdate` is the common base for update policies;
-`UpdateLab.AbstractSweep` specializes it for sweep-based traversal.
+`LatticeIteratorLab.AbstractUpdate` is the common base for update policies;
+`LatticeIteratorLab.AbstractSweep` specializes it for sweep-based traversal.
 Both abstract types are public and accessed with qualified names.
 
-The package name allows other update schedules in the future. This extraction
-introduces no generic tensor-update engine or additional scheduling strategies.
+The package owns traversal, not the operation performed at each position.
+The existing one-dimensional sweep types and iteration protocol remain unchanged.
 
 ## Configuration and setup
 
 Sweep policies are immutable ExperimentLab configurations, supporting
-construction trees, parameter updates, and data interchange under `UpdateLab`
+construction trees, parameter updates, and data interchange under `LatticeIteratorLab`
 constructor names. Configurations defines the options; ExperimentLab provides tree construction,
 display and JSON files.
 Keep it beside this repository, then run:
@@ -57,8 +59,8 @@ Keep it beside this repository, then run:
 julia --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.test()'
 ```
 
-The existing sweep implementation was extracted from MPSSplitLab; the direction
+The existing sweep implementation was extracted from PMPSLab; the direction
 and position types follow the existing traversal convention. PeriodicProductsLab
-retains its reviewed cache API unchanged. MPSSplitLab translates scheduling
+retains its reviewed cache API unchanged. PMPSLab translates scheduling
 positions to cache states at the call boundary; neither lower-level package
 depends on the other.

@@ -10,12 +10,12 @@ using Configurations: to_dict, from_dict
         @test from_dict(typeof(original), to_dict(original)) == original
     end
     config = @config """
-    UpdateLab.CircularSweep
+    LatticeIteratorLab.CircularSweep
       max_sweeps: 2
     """
     @test length(sweep_states(config, 4)) == 8
     loaded = Set(pkg.name for pkg in keys(Base.loaded_modules))
-    @test !("MPSSplitLab" in loaded)
+    @test !("PMPSLab" in loaded)
     @test !("MPSKit" in loaded)
 end
 
@@ -40,11 +40,11 @@ end
 
 import ExperimentLab
 
-@testset "UpdateLab configuration identities" begin
+@testset "LatticeIteratorLab configuration identities" begin
     for config in (CircularSweep(max_sweeps=3), ZigzagSweep(max_sweeps=2)), defaults in (true, false)
         registry = ExperimentLab.config_registry(typeof(config))
         record = ExperimentLab.config_record(registry, config; include_defaults=defaults)
-        @test record["type"] == "UpdateLab." * string(nameof(typeof(config)))
+        @test record["type"] == "LatticeIteratorLab." * string(nameof(typeof(config)))
         @test haskey(record, "parameters")
         io = IOBuffer()
         ExperimentLab.writeconfig(io, config; include_defaults=defaults)

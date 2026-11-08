@@ -40,7 +40,7 @@ Bind a traversal configuration to a site domain. Custom sweeps implement this
 method and return an iterator of `SweepState` values with integer cursor state.
 """
 sweep_states(sweep::AbstractSweep, ::Integer) =
-    throw(ArgumentError("$(typeof(sweep)) must implement UpdateLab.sweep_states"))
+    throw(ArgumentError("$(typeof(sweep)) must implement LatticeIteratorLab.sweep_states"))
 
 function sweep_states(sweep::Union{CircularSweep,ZigzagSweep}, site_count::Integer)
     minimum = sweep isa ZigzagSweep ? 2 : 1

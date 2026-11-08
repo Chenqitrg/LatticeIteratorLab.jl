@@ -1,4 +1,4 @@
-module UpdateLab
+module LatticeIteratorLab
 
 using Configurations: @option
 

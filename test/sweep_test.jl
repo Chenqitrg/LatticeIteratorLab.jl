@@ -1,4 +1,4 @@
-using Test, UpdateLab
+using Test, LatticeIteratorLab
 
 @testset "ZigzagSweep — round-trip order" begin
     # Each round trip visits 1, ..., N, N-1, ..., 2.

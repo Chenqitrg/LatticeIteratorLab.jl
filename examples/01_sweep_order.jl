@@ -1,5 +1,5 @@
-# Run from UpdateLab: julia --project=. examples/01_sweep_order.jl
-using UpdateLab
+# Run from LatticeIteratorLab: julia --project=. examples/01_sweep_order.jl
+using LatticeIteratorLab
 using Test
 
 # A sweep is a traversal policy. Binding N makes an iterator of positions.

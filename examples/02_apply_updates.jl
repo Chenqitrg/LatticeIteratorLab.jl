@@ -1,5 +1,5 @@
-# Run from UpdateLab: julia --project=. examples/02_apply_updates.jl
-using UpdateLab
+# Run from LatticeIteratorLab: julia --project=. examples/02_apply_updates.jl
+using LatticeIteratorLab
 using Test
 
 values = zeros(Int, 4)
